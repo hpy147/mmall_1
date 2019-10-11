@@ -1,8 +1,6 @@
 package com.hpy.common;
 
 import com.google.common.collect.Sets;
-import lombok.Getter;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Set;
 
@@ -25,6 +23,14 @@ public class Const {
 
     public interface ProductListOrderBy {
         Set<String> PRICE_ASC_DESC = Sets.newHashSet("price_asc", "price_desc");
+    }
+
+    public interface Cart {
+        Integer CHECKED = 1;     // 已选中
+        Integer UN_CHECKED = 0;  // 未选中
+
+        String LIMIT_NUM_FAIL = "LIMIT_NUM_FAIL";
+        String LIMIT_NUM_SUCCESS = "LIMIT_NUM_SUCCESS";
     }
 
     public enum ProductStatusEnum {
