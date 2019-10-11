@@ -30,8 +30,7 @@
       status, sort_order, create_time, 
       update_time)
     values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{status,jdbcType=BIT}, #{sortOrder,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{status,jdbcType=BIT}, #{sortOrder,jdbcType=INTEGER}, now(), now())
   </insert>
   <insert id="insertSelective" parameterType="com.hpy.pojo.Category" >
     insert into mmall_category
@@ -100,9 +99,7 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+        update_time = now()
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -116,4 +113,16 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectByParentId" parameterType="int" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from mmall_category
+    where parent_id = #{parentId}
+  </select>
+  
+  <select id="selectByCategoryName" parameterType="string" resultType="int">
+    select count(1)
+    from mmall_category
+    where name = #{categoryName}
+  </select>
 </mapper>
